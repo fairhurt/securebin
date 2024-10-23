@@ -39,7 +39,9 @@
     "build": "INLINE_RUNTIME_CHUNK=false craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --fix --ext .js,.ts,.jsx,.tsx ."
+    "lint": "eslint --fix --ext .js,.ts,.jsx,.tsx .",
+    "lint-staged": "prettier --write .",
+    "prepare": "husky"
   },
   "eslintConfig": {},
   "browserslist": {
@@ -61,6 +63,8 @@
     "@types/uuid": "^9.0.7",
     "babel-eslint": "^10.1.0",
     "eslint-config-react": "^1.1.7",
-    "eslint-config-react-app": "^7.0.1"
+    "eslint-config-react-app": "^7.0.1",
+    "husky": "^9.1.6",
+    "prettier": "3.3.3"
   }
 }

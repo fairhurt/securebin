@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 import { Card, ListItem, ListItemText } from '@mui/material';
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -13,29 +13,36 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export type LSettingsItemType = {
-  primary: string,
-  secondary?: string,
-  children: any,
-  multilineSecondaryText?: boolean,
-}
+  primary: string;
+  secondary?: string;
+  children: any;
+  multilineSecondaryText?: boolean;
+};
 
-const SettingsItem = ({ primary, secondary, children, multilineSecondaryText = false }: LSettingsItemType) => {
+const SettingsItem = ({
+  primary,
+  secondary,
+  children,
+  multilineSecondaryText = false,
+}: LSettingsItemType) => {
   const classes = useStyles();
   return (
-      <>
-        <Card classes={{ root: classes.card }}>
-          <ListItem>
-            <ListItemText secondaryTypographyProps={{ lineHeight: '1.1'}} primaryTypographyProps={{ marginBottom: multilineSecondaryText ? '3px' : '0' }}
-                primary={primary}
-                secondary={secondary ? secondary : null}
-            />
-            {children}
-          </ListItem>
-        </Card>
-      </>
+    <>
+      <Card classes={{ root: classes.card }}>
+        <ListItem>
+          <ListItemText
+            secondaryTypographyProps={{ lineHeight: '1.1' }}
+            primaryTypographyProps={{
+              marginBottom: multilineSecondaryText ? '3px' : '0',
+            }}
+            primary={primary}
+            secondary={secondary ? secondary : null}
+          />
+          {children}
+        </ListItem>
+      </Card>
+    </>
   );
-
-}
-
+};
 
 export default SettingsItem;

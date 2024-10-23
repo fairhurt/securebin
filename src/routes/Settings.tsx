@@ -1,16 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState } from 'react';
 import {
-  Button, Checkbox, List, MenuItem, Select, Typography
-} from "@mui/material";
+  Button,
+  Checkbox,
+  List,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { setLocalItem } from "../chrome/utils/storage";
-import { Storage, ENCRYPTION_METHODS, KEY_LENGTHS, Action } from "../constants";
-import FormDialog from "../components/dialog/ButtonRedirect"
-import { AppContext } from "../contexts/AppContext";
-import SettingsItem from "../components/SettingsItem";
-import ButtonRedirect from "../components/dialog/ButtonRedirect";
-import WarningDialog from "../components/dialog/WarningDialog";
-import ResetWarningDialog from "../components/dialog/ResetWarningDialog";
+import { setLocalItem } from '../chrome/utils/storage';
+import { Storage, ENCRYPTION_METHODS, KEY_LENGTHS, Action } from '../constants';
+import FormDialog from '../components/dialog/ButtonRedirect';
+import { AppContext } from '../contexts/AppContext';
+import SettingsItem from '../components/SettingsItem';
+import ButtonRedirect from '../components/dialog/ButtonRedirect';
+import WarningDialog from '../components/dialog/WarningDialog';
+import ResetWarningDialog from '../components/dialog/ResetWarningDialog';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -30,13 +35,13 @@ const useStyles = makeStyles(theme => ({
   },
   menuItem: {
     height: 10,
-    boxShadow: "none"
+    boxShadow: 'none',
   },
   select: {
     height: 32,
     marginBottom: 8,
     marginTop: 8,
-  }
+  },
 }));
 
 export default function Settings() {
@@ -46,79 +51,95 @@ export default function Settings() {
   // const [THEME, setTheme] = useState(state.settings.theme);
 
   const clearHistory = (e: any) => {
-    dispatch({ type: Action.OPEN_DIALOG, payload: { dialog_id: 'reset_history' } })
-  }
+    dispatch({
+      type: Action.OPEN_DIALOG,
+      payload: { dialog_id: 'reset_history' },
+    });
+  };
 
   const themeHandler = (e: any) => {
     const newTheme = {
       ...state.settings,
-        theme: theme ? false : true,
-    }
-    dispatch({type: Action.UPDATE_THEME, payload: {theme: theme ? false : true}});
+      theme: theme ? false : true,
+    };
+    dispatch({
+      type: Action.UPDATE_THEME,
+      payload: { theme: theme ? false : true },
+    });
 
     // setTheme(!THEME);
-    console.log("Theme", newTheme, state.settings.theme, {statemodified: !theme, stateoriginal: theme});
-  }
-
+    console.log('Theme', newTheme, state.settings.theme, {
+      statemodified: !theme,
+      stateoriginal: theme,
+    });
+  };
 
   const resetSettings = (e: any) => {
-    dispatch({ type: Action.OPEN_DIALOG, payload: { dialog_id: 'reset_settings' } })
-  }
+    dispatch({
+      type: Action.OPEN_DIALOG,
+      payload: { dialog_id: 'reset_settings' },
+    });
+  };
 
   return (
     <div>
       <WarningDialog />
       <ResetWarningDialog />
-      <Typography variant='h2' className={classes.pageHeading}>Settings</Typography>
+      <Typography variant="h2" className={classes.pageHeading}>
+        Settings
+      </Typography>
       <List className={classes.list}>
         <Typography variant={'h4'}>Theme</Typography>
         <SettingsItem
-            primary={'Dark Mode'}
-            children={<Checkbox checked={theme} onChange={themeHandler} />}
+          primary={'Dark Mode'}
+          children={<Checkbox checked={theme} onChange={themeHandler} />}
         />
 
         <Typography variant={'h4'}>Encryption</Typography>
         <SettingsItem
-            primary={'Encryption'}
-            secondary={encryption ? `Enabled with ${key_length * 8}-bit ${enc_mode} ` : 'Disabled'}
-            children={(
-                <ButtonRedirect iconButton value={"Configure"} url={'/encconfig'}/>
-            )}
+          primary={'Encryption'}
+          secondary={
+            encryption
+              ? `Enabled with ${key_length * 8}-bit ${enc_mode} `
+              : 'Disabled'
+          }
+          children={
+            <ButtonRedirect iconButton value={'Configure'} url={'/encconfig'} />
+          }
         />
 
         <Typography variant={'h4'}>Pastebin API</Typography>
         <SettingsItem
-            primary={'API Key'}
-            secondary={api_key ? 'Set' : "Not Set"}
-            children={(
-                <ButtonRedirect iconButton value={api_key ? "Change" : "Set Key"} url={'/apikey'}/>
-            )}
+          primary={'API Key'}
+          secondary={api_key ? 'Set' : 'Not Set'}
+          children={
+            <ButtonRedirect
+              iconButton
+              value={api_key ? 'Change' : 'Set Key'}
+              url={'/apikey'}
+            />
+          }
         />
 
         <Typography variant={'h4'}>Help</Typography>
         <SettingsItem
-            primary={'Support'}
-            children={(
-                <ButtonRedirect iconButton value={"Get Help"} url={'/support'}/>
-            )}
+          primary={'Support'}
+          children={
+            <ButtonRedirect iconButton value={'Get Help'} url={'/support'} />
+          }
         />
-
 
         <Typography variant={'h4'}>Reset</Typography>
         <SettingsItem
-            primary={'Clear History'}
-            children={(
-                <Button onClick={clearHistory}>Clear</Button>
-            )}
+          primary={'Clear History'}
+          children={<Button onClick={clearHistory}>Clear</Button>}
         />
 
         <SettingsItem
-            primary={'Reset Settings'}
-            children={(
-                <Button onClick={resetSettings}>Reset</Button>
-            )}
+          primary={'Reset Settings'}
+          children={<Button onClick={resetSettings}>Reset</Button>}
         />
       </List>
     </div>
-  )
+  );
 }

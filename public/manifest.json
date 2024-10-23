@@ -1,6 +1,6 @@
 {
   "name": "secureBin",
-  "description" : "Securely encrypt your text on Pastebin.com",
+  "description": "Securely encrypt your text on Pastebin.com",
   "version": "1.0.2",
   "manifest_version": 3,
   "action": {
@@ -15,12 +15,6 @@
   "background": {
     "service_worker": "./static/js/background.js"
   },
-  "permissions": [
-    "storage",
-    "contextMenus",
-    "clipboardWrite"
-  ],
-  "optional_permissions": [
-    "<all_urls>"
-  ]
+  "permissions": ["storage", "contextMenus", "clipboardWrite"],
+  "optional_permissions": ["<all_urls>"]
 }
