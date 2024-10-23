@@ -13,11 +13,7 @@
     "plugin:react-hooks/recommended",
     "prettier"
   ],
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "prettier"
-  ],
+  "plugins": ["react", "@typescript-eslint", "prettier"],
   "parserOptions": {
     "ecmaVersion": 2021,
     "sourceType": "module",
@@ -25,10 +21,7 @@
       "jsx": true
     }
   },
-  "ignorePatterns": [
-    "build/",
-    "craco.config.js"
-  ],
+  "ignorePatterns": ["build/", "craco.config.js"],
   "rules": {
     "@typescript-eslint/no-empty-function": "off",
     "prettier/prettier": "error",
