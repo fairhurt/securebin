@@ -145,7 +145,7 @@ const EncryptionConfig = () => {
   const [apiKey, setApiKey] = React.useState(api_key);
   const [valid, setValid] = React.useState<null | boolean>(null);
   const [timeoutId, setTimeoutId] = React.useState<any>(null);
-  let { goBack } = useHistory();
+  const { goBack } = useHistory();
 
   const handleClickOpen = () => {
     setOpen(true);

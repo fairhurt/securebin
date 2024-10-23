@@ -45,7 +45,7 @@ const SubHeader = () => {
   console.log('SUBHEADER IN COMPONENT HERE', { subheader });
 
   const classes = useStyles();
-  let { goBack } = useHistory();
+  const { goBack } = useHistory();
   //
   // useEffect(() => {
   //     // Rerender

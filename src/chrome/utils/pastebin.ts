@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { AppContext } from '../../contexts/AppContext';
 
 export async function postPastebin(encryptQuery: string, apiKey: string) {
-  var myHeaders = new Headers();
+  const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
   myHeaders.append(
     'Cookie',
@@ -18,7 +18,7 @@ export async function postPastebin(encryptQuery: string, apiKey: string) {
     return API_ERROR;
   }
 
-  var content = new URLSearchParams();
+  const content = new URLSearchParams();
   content.append('api_dev_key', apiKey);
   content.append('api_paste_code', encryptQuery);
   content.append('api_option', 'paste');
@@ -71,7 +71,7 @@ export async function getPastebin(link: string) {
 }
 
 export async function isValidDevKey(apiKey: string) {
-  var myHeaders = new Headers();
+  const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
   myHeaders.append(
     'Cookie',
@@ -84,7 +84,7 @@ export async function isValidDevKey(apiKey: string) {
   //     return API_ERROR;
   // }
 
-  var content = new URLSearchParams();
+  const content = new URLSearchParams();
   content.append('api_dev_key', apiKey);
   content.append('api_option', 'userdetails');
   console.log('Content ', content);

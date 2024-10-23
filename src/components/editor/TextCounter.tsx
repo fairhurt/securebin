@@ -39,7 +39,7 @@ const TextCounter = ({ menu, textLength }: LTextCounterType) => {
     // button is pastebin enc
     MAX = MAX_PASTEBIN_TEXT_LENGTH;
   }
-  let safe = textLength < MAX;
+  const safe = textLength < MAX;
 
   return (
     <div className={classes.counterContainer}>

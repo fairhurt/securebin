@@ -19,8 +19,8 @@ const TextEditor = () => {
   }, [state.draft.plaintext]);
 
   const checkTypeOfText = (e: any) => {
-    let textbox = e.target.value || '';
-    let length = textbox.length;
+    const textbox = e.target.value || '';
+    const length = textbox.length;
     let buttonEnabled = false;
     const encryptionEnabled = state.settings.encryption;
     let buttonText:

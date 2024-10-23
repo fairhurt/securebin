@@ -105,7 +105,7 @@ export const removeItem = (
   callback?: () => void
 ) => {
   getLocalItem(key, data => {
-    let result = data[key];
+    const result = data[key];
     if (result && result.length > index) {
       result.splice(index, 1);
     }

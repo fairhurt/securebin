@@ -28,7 +28,7 @@ export const getCurrentTabUId = (
 
 export const printDateInCorrectFormat = (dateOfEvent: number | Date) => {
   const now = new Date().getTime();
-  let eventDate = new Date(dateOfEvent).getTime();
+  const eventDate = new Date(dateOfEvent).getTime();
   if (Math.abs(now - eventDate) < 170000000) {
     return moment(dateOfEvent).fromNow();
   } else {
@@ -42,7 +42,7 @@ export function copyTextClipboard(text: string | undefined) {
   }
 
   //Create a textbox field where we can insert text to.
-  var copyFrom = document.createElement('textarea');
+  const copyFrom = document.createElement('textarea');
 
   //Set the text content to be the text you wished to copy.
   copyFrom.textContent = text;

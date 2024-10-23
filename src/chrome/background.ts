@@ -19,19 +19,19 @@ import { SettingsType } from '../contexts/AppContext';
  *  and when Chrome is updated to a new version. */
 chrome.runtime.onInstalled.addListener(async details => {
   console.log('onInstall, checking for settings, else set defaults', details);
-  let mode = (await getSyncItemAsync(Storage.ENC_MODE)) as string;
+  const mode = (await getSyncItemAsync(Storage.ENC_MODE)) as string;
   if (mode === undefined) {
     console.log('Mode = ', 'AES-GCM');
     setSyncItem(Storage.ENC_MODE, 'AES-GCM');
   }
 
-  let len = (await getSyncItemAsync(Storage.KEY_LENGTH)) as number;
+  const len = (await getSyncItemAsync(Storage.KEY_LENGTH)) as number;
   if (len === undefined) {
     console.log('Key_Len = ', 128);
     setSyncItem(Storage.KEY_LENGTH, 16);
   }
 
-  let theme = (await getSyncItemAsync(Storage.THEME)) as number;
+  const theme = (await getSyncItemAsync(Storage.THEME)) as number;
   if (theme === undefined) {
     console.log('Theme = ', 'Light');
     setSyncItem(Storage.THEME, false);
@@ -70,18 +70,18 @@ chrome.runtime.onSuspend.addListener(() => {
 //     }
 //   });
 
-var pasteBinMenuItem = {
+const pasteBinMenuItem = {
   id: 'pasteBin',
   title: 'Share via PasteBin',
   contexts: ['selection'],
 };
 
-var clipboardMenuItem = {
+const clipboardMenuItem = {
   id: 'clipboardMenuItem',
   title: 'Encrypt to Clipboard',
   contexts: ['selection'],
 };
-var decryptMenuItem = {
+const decryptMenuItem = {
   id: 'decryptText',
   title: 'Decrypt Text',
   contexts: ['selection'],
@@ -106,9 +106,12 @@ chrome.contextMenus.onClicked.addListener(async clickData => {
 
     const { enc_mode, encryption, key_length, api_key } =
       (await getSyncItemAsync(Storage.SETTINGS)) as SettingsType;
-    let res = await encrypt(text);
+    const res = await encrypt(text);
     console.log('ENC text', enc_mode, encryption, key_length, api_key);
-    let link = await postPastebin(res.data, 'LxmOdiaiwoCXmuwWvUqkhliMcp0LjHP-'); // TODO change this
+    const link = await postPastebin(
+      res.data,
+      'LxmOdiaiwoCXmuwWvUqkhliMcp0LjHP-'
+    ); // TODO change this
     const history = {
       id: uuidv4(),
       pastebinlink: `${enc_mode}-${encryption}-${key_length}-${api_key}`,
@@ -126,9 +129,9 @@ chrome.contextMenus.onClicked.addListener(async clickData => {
       alert('Can only encrypt up to ' + MAX_ENC_TEXT_LENGTH + ' characters');
       return;
     }
-    let res = await encrypt(text);
-    let mode = (await getSyncItemAsync(Storage.ENC_MODE)) as string;
-    let len = (await getSyncItemAsync(Storage.KEY_LENGTH)) as number;
+    const res = await encrypt(text);
+    const mode = (await getSyncItemAsync(Storage.ENC_MODE)) as string;
+    const len = (await getSyncItemAsync(Storage.KEY_LENGTH)) as number;
     //console.log("ENC text", res.data)
 
     const history = {
@@ -155,17 +158,17 @@ chrome.contextMenus.onClicked.addListener(async clickData => {
       alert('PasteBin only supports up to 512 Characters of text');
       return;
     }
-    let key = prompt('Please enter your key');
+    const key = prompt('Please enter your key');
     if (key === null) {
       return;
     } else if (text.includes('C_TXT')) {
-      let res = decrypt(text, key);
+      const res = decrypt(text, key);
       alert('Decrypted text: \n' + res);
       //console.log(res);
     } else if (text.includes('pastebin')) {
-      let link = text;
+      const link = text;
       text = await getPastebin(link);
-      let res = decrypt(text, key);
+      const res = decrypt(text, key);
       alert('Decrypted text: \n' + res);
       //console.log(res);
     } else {

@@ -107,7 +107,7 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
             {Action.ENCRYPT}
           </MenuItem>
           <MenuItem
-            disabled={!!!apiKey}
+            disabled={!apiKey}
             onClick={e => handleClose(Action.ENCRYPT_PASTEBIN)}
             dense
             disableRipple
@@ -116,7 +116,7 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
             {Action.ENCRYPT_PASTEBIN}
           </MenuItem>
           <MenuItem
-            disabled={!!!apiKey}
+            disabled={!apiKey}
             onClick={e => handleClose(Action.UNENCRYPT_PASTEBIN)}
             dense
             disableRipple
@@ -134,7 +134,7 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
             {Action.DECRYPT}
           </MenuItem>
           <MenuItem
-            disabled={!!!apiKey}
+            disabled={!apiKey}
             onClick={e => handleClose(Action.DECRYPT_PASTEBIN)}
             dense
             disableRipple
@@ -173,7 +173,7 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
             {Action.SAVE_DRAFT}
           </MenuItem>
           <MenuItem
-            disabled={!!!apiKey}
+            disabled={!apiKey}
             onClick={e => handleClose(Action.UNENCRYPT_PASTEBIN)}
             dense
             disableRipple
@@ -183,7 +183,7 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
           </MenuItem>
           <Divider sx={{ my: 0.5 }} />
           <MenuItem
-            disabled={!!!apiKey}
+            disabled={!apiKey}
             onClick={e => handleClose(Action.OPEN_PASTEBIN)}
             dense
             disableRipple

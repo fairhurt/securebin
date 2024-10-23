@@ -3,8 +3,8 @@ import { getSyncItemAsync } from './storage';
 import { Storage } from '../../constants';
 
 export async function encrypt(data: string, password?: string) {
-  let mode = (await getSyncItemAsync(Storage.ENC_MODE)) as string;
-  let len = (await getSyncItemAsync(Storage.KEY_LENGTH)) as number;
+  const mode = (await getSyncItemAsync(Storage.ENC_MODE)) as string;
+  const len = (await getSyncItemAsync(Storage.KEY_LENGTH)) as number;
 
   // encrypt data
   const encRes = encryptText(data, mode, len, password);
@@ -36,13 +36,13 @@ function encryptText(
 
   // Encrypt the text
   let iv = forge.random.getBytesSync(16);
-  let cipher = forge.cipher.createCipher(mode as forge.cipher.Algorithm, key);
+  const cipher = forge.cipher.createCipher(mode as forge.cipher.Algorithm, key);
   cipher.start({ iv: iv });
   cipher.update(forge.util.createBuffer(text));
   cipher.finish();
 
   // encode bytes to base64
-  let cTXT = forge.util.encode64(cipher.output.data);
+  const cTXT = forge.util.encode64(cipher.output.data);
   let tag = '';
   if (mode === 'AES-GCM') {
     tag = forge.util.encode64(cipher.mode.tag.bytes().toString());
@@ -71,8 +71,8 @@ function encryptText(
 }
 
 export function decrypt(cData: string, key: string): string {
-  let r = JSON.parse(cData);
-  let pTXT = decryptText(r.C_TXT, key, r.IV, r.Tag, r.Mode, r.Salt, r.Length);
+  const r = JSON.parse(cData);
+  const pTXT = decryptText(r.C_TXT, key, r.IV, r.Tag, r.Mode, r.Salt, r.Length);
   return pTXT;
 }
 
@@ -100,13 +100,13 @@ function decryptText(
   iv = forge.util.decode64(iv);
   if (salt && len) {
     salt = forge.util.decode64(salt);
-    let size = len as unknown as number;
+    const size = len as unknown as number;
     key = forge.pkcs5.pbkdf2(key, salt, 10000, size);
   } else {
     key = forge.util.decode64(key);
   }
 
-  let decipher = forge.cipher.createDecipher(
+  const decipher = forge.cipher.createDecipher(
     mode as forge.cipher.Algorithm,
     key
   );
@@ -117,6 +117,6 @@ function decryptText(
 
   decipher.update(forge.util.createBuffer(cTXT));
   decipher.finish();
-  let decrypted = decipher.output.data;
+  const decrypted = decipher.output.data;
   return decrypted;
 }

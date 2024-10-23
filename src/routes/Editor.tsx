@@ -38,7 +38,7 @@ export default function Editor() {
     settings: { api_key },
   } = state;
 
-  let { push } = useHistory();
+  const { push } = useHistory();
 
   const createPost = useCreatePost();
 

@@ -88,7 +88,7 @@ const Result = () => {
     });
   }, [result]);
 
-  let { goBack } = useHistory();
+  const { goBack } = useHistory();
   const classes = useStyles();
 
   const isPasteBin = !!result?.pastebinlink;

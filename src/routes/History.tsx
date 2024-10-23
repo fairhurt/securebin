@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function History() {
-  let { push } = useHistory();
+  const { push } = useHistory();
   const { state, dispatch } = useContext(AppContext);
   const { history } = state;
 
@@ -59,7 +59,7 @@ export default function History() {
   };
 
   const handleTitle = (item: HistoryType) => {
-    let title = '';
+    const title = '';
 
     if (item?.pastebinlink) {
       return item.pastebinlink;

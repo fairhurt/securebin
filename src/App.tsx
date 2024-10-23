@@ -66,7 +66,7 @@ export const App = () => {
     },
   }));
 
-  let { push } = useHistory();
+  const { push } = useHistory();
   const location = useLocation();
 
   useEffect(() => {
