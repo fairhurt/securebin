@@ -1,7 +1,4 @@
-import { getSyncItemAsync } from './storage';
-import { Storage, API_ERROR } from '../../constants';
-import { useContext } from 'react';
-import { AppContext } from '../../contexts/AppContext';
+import { API_ERROR } from '../../constants';
 
 export async function postPastebin(encryptQuery: string, apiKey: string) {
   const myHeaders = new Headers();
@@ -106,9 +103,9 @@ export async function isValidDevKey(apiKey: string) {
 
     if (error.includes('invalid api_dev_key')) {
       return false;
-    } else if ('Api User Key') {
+    } else {
       return true;
-    } else return null;
+    }
   }
 
   return null;

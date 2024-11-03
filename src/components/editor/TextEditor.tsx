@@ -12,7 +12,7 @@ import clsx from 'clsx';
 const TextEditor = () => {
   const { state, dispatch } = useContext(AppContext);
   const [textBox, setTextBox] = React.useState(state.draft.plaintext);
-  const [timerId, setTimerId] = useState(null);
+  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setTextBox(state.draft.plaintext);
@@ -37,7 +37,6 @@ const TextEditor = () => {
     setTextBox(textbox);
 
     if (timerId !== null) {
-      // @ts-ignore
       clearTimeout(timerId);
     }
 
@@ -68,7 +67,6 @@ const TextEditor = () => {
       });
     }, 250);
 
-    // @ts-ignore
     setTimerId(newTimerId);
   };
 

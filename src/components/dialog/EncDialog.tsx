@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -39,12 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export type LCopyboxType = {
-  title?: string;
-  value?: string;
-};
-
-const EncryptFormDialog = ({ title, value }: LCopyboxType) => {
+const EncryptFormDialog = () => {
   const classes = useStyles();
   const { state, dispatch } = useContext(AppContext);
   const {
@@ -101,10 +95,6 @@ const EncryptFormDialog = ({ title, value }: LCopyboxType) => {
             Encrypt
           </Button>
         </DialogContent>
-        {/*<DialogActions>*/}
-        {/*  <Button onClick={handleCancel}>Cancel</Button>*/}
-        {/*  <Button onClick={handleClose}>Enter</Button>*/}
-        {/*</DialogActions>*/}
       </Dialog>
     </div>
   );

@@ -5,11 +5,8 @@ import { Action } from '../../constants';
 import KeyIcon from '@mui/icons-material/Key';
 import KeyOffIcon from '@mui/icons-material/KeyOff';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import LinkIcon from '@mui/icons-material/Link';
-import AddLinkIcon from '@mui/icons-material/AddLink';
 import { alpha, styled } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -85,10 +82,10 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
     return (
       <div>
         <StyledMenu
-          /* @ts-ignore */
+          // @ts-ignore
           anchorEl={anchorEl}
           open={open}
-          onClose={(e: any) => handleClose(menu)}
+          onClose={() => handleClose(menu)}
         >
           <MenuItem
             sx={{ fontWeight: 700, color: 'grey' }}
@@ -99,7 +96,7 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
             Select Action
           </MenuItem>
           <MenuItem
-            onClick={e => handleClose(Action.ENCRYPT)}
+            onClick={() => handleClose(Action.ENCRYPT)}
             dense
             disableRipple
           >
@@ -108,7 +105,7 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
           </MenuItem>
           <MenuItem
             disabled={!apiKey}
-            onClick={e => handleClose(Action.ENCRYPT_PASTEBIN)}
+            onClick={() => handleClose(Action.ENCRYPT_PASTEBIN)}
             dense
             disableRipple
           >
@@ -117,7 +114,7 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
           </MenuItem>
           <MenuItem
             disabled={!apiKey}
-            onClick={e => handleClose(Action.UNENCRYPT_PASTEBIN)}
+            onClick={() => handleClose(Action.UNENCRYPT_PASTEBIN)}
             dense
             disableRipple
           >
@@ -126,7 +123,7 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
           </MenuItem>
           <Divider sx={{ my: 0.5 }} />
           <MenuItem
-            onClick={e => handleClose(Action.DECRYPT)}
+            onClick={() => handleClose(Action.DECRYPT)}
             dense
             disableRipple
           >
@@ -135,7 +132,7 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
           </MenuItem>
           <MenuItem
             disabled={!apiKey}
-            onClick={e => handleClose(Action.DECRYPT_PASTEBIN)}
+            onClick={() => handleClose(Action.DECRYPT_PASTEBIN)}
             dense
             disableRipple
           >
@@ -151,10 +148,10 @@ const DropDown = ({ anchorEl, setAnchorEl, open }: any) => {
     return (
       <div>
         <StyledMenu
-          /* @ts-ignore */
+          // @ts-ignore
           anchorEl={anchorEl}
           open={open}
-          onClose={(e: any) => handleClose(menu)}
+          onClose={() => handleClose(menu)}
         >
           <MenuItem
             sx={{ fontWeight: 700, color: 'grey' }}

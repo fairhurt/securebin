@@ -6,24 +6,15 @@ import {
   DialogContentText,
   DialogTitle,
   Divider,
-  InputBase,
   Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { AppContext } from '../../contexts/AppContext';
-import { Action, Storage } from '../../constants';
+import { Action } from '../../constants';
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
+import clsx from 'clsx';
 
 const useStyles = makeStyles(theme => ({
-  copybox: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    borderRadius: 6,
-    border: '1px solid',
-    borderColor: 'rgba(170,170,170,0.25)',
-    boxShadow: '0 0 7px 0 rgba(0,0,0,0.04)',
-    marginTop: 20,
-    marginBottom: 14,
-  },
   buttonEd: {
     width: '100%',
     backgroundColor: 'rgba(0,117,250,0.08)',
@@ -41,28 +32,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
-import clsx from 'clsx';
-import { setLocalItem } from '../../chrome/utils/storage';
-
-export type LCopyboxType = {
-  title?: string;
-  value?: string;
-};
-
-const ResetWarningDialog = ({ title, value }: LCopyboxType) => {
+const ResetWarningDialog = () => {
   const classes = useStyles();
   const { state, dispatch } = useContext(AppContext);
   const {
     app: { dialog_id },
-    history,
   } = state;
 
   const handleClose = () => {
     dispatch({ type: Action.CLOSE_DIALOG });
   };
 
-  const resetSettings = (e: any) => {
+  const resetSettings = () => {
     dispatch({ type: Action.RESET_SETTINGS, payload: null });
     dispatch({ type: Action.CLOSE_DIALOG });
   };

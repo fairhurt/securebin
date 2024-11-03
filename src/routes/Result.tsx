@@ -1,13 +1,10 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { AppContext, HistoryType } from '../contexts/AppContext';
-import { useHistory, useParams } from 'react-router-dom';
-import { ChevronLeft } from '@mui/icons-material';
+import { useParams } from 'react-router-dom';
 import StatusIcon from '../components/editor/StatusIcon';
 import Copybox from '../components/common/Copybox';
-import SubHeader from '../components/common/SubHeader';
 import CopyboxMultiline from '../components/common/CopyboxMultiline';
 import { Action } from '../constants';
 import moment from 'moment/moment';
@@ -27,24 +24,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 10,
     marginRight: 10,
   },
-  bottomButton: {
-    marginTop: 10,
-    marginBottom: 15,
-  },
-  topMargin: {
-    marginTop: 164,
-  },
 }));
-
-export type LHistoryType = {
-  id: number;
-  pastebinlink: string;
-  enc_mode: string;
-  key_length: number;
-  key: string;
-  enc_text: string;
-  date: Date;
-};
 
 const Result = () => {
   const { id } = useParams();
@@ -70,7 +50,7 @@ const Result = () => {
         state.history.length ? state.history[state.history.length - 1] : null
       );
     }
-  }, []);
+  }, [id, state.history]);
 
   useEffect(() => {
     dispatch({
@@ -86,9 +66,8 @@ const Result = () => {
         },
       },
     });
-  }, [result]);
+  }, [dispatch, result]);
 
-  const { goBack } = useHistory();
   const classes = useStyles();
 
   const isPasteBin = !!result?.pastebinlink;

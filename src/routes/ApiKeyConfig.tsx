@@ -1,13 +1,8 @@
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import {
   Box,
-  Button,
   Card,
-  Dialog,
-  DialogActions,
   DialogContent,
-  DialogContentText,
-  DialogTitle,
   Divider,
   InputBase,
   ListItem,
@@ -16,47 +11,13 @@ import {
   Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { AppContext, HistoryType } from '../contexts/AppContext';
-import { useHistory } from 'react-router-dom';
-import {
-  CheckCircle,
-  ChevronLeft,
-  ContentPasteRounded,
-  Error,
-} from '@mui/icons-material';
-import StatusIcon from '../components/editor/StatusIcon';
-import Copybox from '../components/common/Copybox';
-import SubHeader from '../components/common/SubHeader';
-import CopyboxMultiline from '../components/common/CopyboxMultiline';
+import { AppContext } from '../contexts/AppContext';
+import { CheckCircle, Error } from '@mui/icons-material';
 import { isValidDevKey } from '../chrome/utils/pastebin';
 import { Action, PASTEBIN_API_KEY_LENGTH } from '../constants';
-import moment from 'moment';
-import { copyTextClipboard } from '../chrome/utils';
 import clsx from 'clsx';
-import goBack = chrome.tabs.goBack;
 
 const useStyles = makeStyles(theme => ({
-  center: {
-    width: '100%',
-    margin: '20px 0',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    textAlign: 'center',
-    alignItems: 'center',
-  },
-  left: {
-    textAlign: 'left',
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  bottomButton: {
-    marginTop: 10,
-    marginBottom: 15,
-  },
-  topMargin: {
-    marginTop: 164,
-  },
   copybox: {
     padding: '7px 0 7px 10px',
     borderRadius: 6,
@@ -68,13 +29,6 @@ const useStyles = makeStyles(theme => ({
   margin: {
     marginTop: 10,
   },
-  card: {
-    borderRadius: 6,
-    border: '1px solid',
-    borderColor: 'rgba(170,170,170,0.25)',
-    boxShadow: '0 0 7px 0 rgba(0,0,0,0.04)',
-    marginBottom: 14,
-  },
   green: {
     color: 'green',
   },
@@ -84,22 +38,7 @@ const useStyles = makeStyles(theme => ({
   icon: {
     fontSize: '14px',
   },
-  pageHeading: {
-    paddingLeft: 20,
-    paddingTop: 20,
-    marginBottom: 10,
-  },
 }));
-
-export type LHistoryType = {
-  id: number;
-  pastebinlink: string;
-  enc_mode: string;
-  key_length: number;
-  key: string;
-  enc_text: string;
-  date: Date;
-};
 
 export function StatusBanner(props: any) {
   const classes = useStyles();
@@ -139,24 +78,17 @@ export function StatusBanner(props: any) {
 
 const EncryptionConfig = () => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
   const { state, dispatch } = React.useContext(AppContext);
-  const { api_key, enc_mode, theme, key_length, encryption } = state.settings;
+  const { api_key } = state.settings;
   const [apiKey, setApiKey] = React.useState(api_key);
   const [valid, setValid] = React.useState<null | boolean>(null);
-  const [timeoutId, setTimeoutId] = React.useState<any>(null);
-  const { goBack } = useHistory();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const [timeoutId, setTimeoutId] = React.useState<NodeJS.Timeout | null>(null);
 
   const handleSave = () => {
     dispatch({
       type: Action.UPDATE_SETTINGS,
       payload: { ...state.settings, api_key: apiKey },
     });
-    // goBack();
   };
 
   const handleApiKeyTest = () => {
@@ -185,7 +117,7 @@ const EncryptionConfig = () => {
 
     // Cleanup function to clear the timeout if the component unmounts
     return () => clearTimeout(id);
-  }, [apiKey]);
+  }, [apiKey, handleApiKeyTest, timeoutId, valid]);
 
   useLayoutEffect(() => {
     dispatch({
@@ -199,7 +131,7 @@ const EncryptionConfig = () => {
         },
       },
     });
-  }, [state.app.location]);
+  }, [dispatch, state.app.location]);
 
   return (
     <Box>
@@ -256,7 +188,6 @@ const EncryptionConfig = () => {
           .
         </Typography>
 
-        {/*<br/>*/}
         <Typography variant={'h4'}>Access Your API Key</Typography>
         <Typography variant={'body2'} className={classes.margin}>
           Once you have an account, your API key can be found in the API

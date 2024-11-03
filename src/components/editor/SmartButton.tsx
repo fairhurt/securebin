@@ -54,9 +54,12 @@ const SmartButton = ({ setAnchorEl, open }: any) => {
   };
 
   const getButtonText = () => {
-    if (plainMap.hasOwnProperty(menu) && !encryption) {
+    if (Object.prototype.hasOwnProperty.call(plainMap, menu) && !encryption) {
       return plainMap[menu];
-    } else if (encryptionMap.hasOwnProperty(menu) && encryption) {
+    } else if (
+      Object.prototype.hasOwnProperty.call(encryptionMap, menu) &&
+      encryption
+    ) {
       return encryptionMap[menu];
     }
     return menu;

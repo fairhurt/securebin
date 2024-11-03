@@ -1,12 +1,11 @@
 import React, { useEffect, useContext } from 'react';
 import { AppContext } from '../contexts/AppContext';
 
-import { Divider, Theme } from '@mui/material';
+import { Divider } from '@mui/material';
 
-import { Action, Storage } from '../constants';
+import { Action } from '../constants';
 import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useHistory } from 'react-router-dom';
 import TextCounter from '../components/editor/TextCounter';
 import EncryptFormDialog from '../components/dialog/EncDialog';
 import DecryptFormDialog from '../components/dialog/DecDialog';
@@ -15,7 +14,7 @@ import TextEditor from '../components/editor/TextEditor';
 import SmartButton from '../components/editor/SmartButton';
 import { useCreatePost } from '../hooks/useCreatePost';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   bottomSection: {
     display: 'flex',
   },
@@ -33,12 +32,9 @@ export default function Editor() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const {
-    draft: { buttonEnabled, action: menu, key: passkey, plaintext: text },
+    draft: { action: menu, key: passkey },
     app: { dialog_id },
-    settings: { api_key },
   } = state;
-
-  const { push } = useHistory();
 
   const createPost = useCreatePost();
 
@@ -49,7 +45,6 @@ export default function Editor() {
     }
   }, [passkey, dialog_id]);
 
-  // @ts-ignore
   return (
     <>
       <div>

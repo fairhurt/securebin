@@ -129,7 +129,7 @@ export const App = () => {
   useEffect(() => {
     dispatch({ type: Action.UPDATE_NAVIGATION, payload: { location } });
     // setSyncItem(Storage.APP, JSON.stringify({location, date: new Date().getTime()}));
-  }, [location]);
+  }, [dispatch, location]);
 
   useEffect(() => {}, [state.app.subheader]);
 

@@ -13,7 +13,6 @@ export function useCreatePost() {
 
   const {
     draft: { buttonEnabled, action: menu, key: passkey, plaintext: text },
-    app: { dialog_id },
     settings: { api_key },
   } = state;
 

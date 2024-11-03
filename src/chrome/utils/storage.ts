@@ -19,7 +19,7 @@ export const deleteSyncItem = (
 };
 
 export const getSyncItemAsync = async (key: string) => {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     chrome.storage.sync.get([key], function (result) {
       if (result[key] === undefined) {
         console.log(`${key} not found in storage`);

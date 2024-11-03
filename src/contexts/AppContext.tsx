@@ -1,7 +1,5 @@
 import React, { createContext, Dispatch, useReducer } from 'react';
 import { Action } from '../constants';
-import { getSyncItem, getLocalItem } from '../chrome/utils/storage';
-import { Storage } from '../constants';
 import {
   HistoryActions,
   historyReducer,
@@ -62,23 +60,6 @@ export type AppType = {
   dialog_id: string | null;
   subheader: SubHeaderType | null;
 };
-
-function getSettingsValuesFromStorage() {
-  getSyncItem(null, data => {
-    return {
-      api_key: data[Storage.API_KEY],
-      enc_mode: data[Storage.ENC_MODE],
-      key_length: data[Storage.KEY_LENGTH],
-      theme: data[Storage.THEME],
-    } as SettingsType;
-  });
-  return {
-    api_key: '',
-    enc_mode: '',
-    key_length: -1,
-    theme: false,
-  } as SettingsType;
-}
 
 type InitialStateType = {
   app: AppType;

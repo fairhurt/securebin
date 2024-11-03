@@ -237,40 +237,34 @@ export const appReducer = (
 ) => {
   switch (action.type) {
     case Action.UPDATE_NAVIGATION:
-      const location = action.payload.location;
-      const updatedNavigation = {
-        ...state,
-        location: location,
-        subheader: null,
-      };
       // setSyncItem(Storage.APP, JSON.stringify({location, date: new Date().getTime()}));
-      return updatedNavigation;
-    case Action.SET_NAVIGATION:
-      const setNavigation = {
+      return {
         ...state,
         location: action.payload.location,
         subheader: null,
       };
-      return setNavigation;
+    case Action.SET_NAVIGATION:
+      return {
+        ...state,
+        location: action.payload.location,
+        subheader: null,
+      };
     case Action.OPEN_DIALOG:
-      const updatedId = {
+      return {
         ...state,
         dialog_id: action.payload.dialog_id,
       };
-      return updatedId;
     case Action.CLOSE_DIALOG:
-      const updatedClosedId = {
+      return {
         ...state,
         dialog_id: null,
       };
-      return updatedClosedId;
     case Action.SET_SUBHEADER:
       console.log('RECEIEVED SUBHEADER', action.payload.subheader);
-      const updatedSubheader = {
+      return {
         ...state,
         subheader: action.payload.subheader,
       };
-      return updatedSubheader;
     default:
       return state;
   }
@@ -303,7 +297,7 @@ export const draftReducer = (
         // key: action.payload.key,
         pastebinlink: action.payload.pastebinlink,
       };
-    case Action.UPDATE_PLAINTEXT:
+    case Action.UPDATE_PLAINTEXT: {
       const updatedPlaintext = {
         ...state,
         plaintext: action.payload.plaintext,
@@ -312,6 +306,7 @@ export const draftReducer = (
       };
       setSyncItem(Storage.DRAFT, JSON.stringify(updatedPlaintext));
       return updatedPlaintext;
+    }
     case Action.UPDATE_ENC_MENU:
       return {
         ...state,
@@ -319,35 +314,31 @@ export const draftReducer = (
         buttonEnabled: action.payload.buttonEnabled,
       };
     case Action.SET_DRAFT:
-      const setPlaintext = {
+      return {
         ...state,
         plaintext: action.payload.plaintext,
         action: action.payload.action,
         buttonEnabled: action.payload.buttonEnabled,
       };
-      return setPlaintext;
     case Action.SET_KEY:
-      const setKey = {
+      return {
         ...state,
         key: action.payload.key,
       };
-      return setKey;
     case Action.SET_ACTION:
-      const setAction = {
+      return {
         ...state,
         action: action.payload.action,
       };
-      return setAction;
     case Action.RESET_DRAFT:
-      const resetDraft = {
+      deleteSyncItem(Storage.DRAFT);
+      return {
         ...state,
         key: '',
         plaintext: '',
         action: Action.ENCRYPT,
         buttonEnabled: false,
       } as DraftType;
-      deleteSyncItem(Storage.DRAFT);
-      return resetDraft;
     default:
       return state;
   }
@@ -363,8 +354,7 @@ export const settingsReducer = (
     | GlobalActions
 ) => {
   switch (action.type) {
-    case Action.SET_SETTINGS:
-      // @ts-ignore
+    case Action.SET_SETTINGS: {
       const { encryption, sync_theme } = action.payload || {};
       const setEncryption =
         encryption !== undefined ? encryption : state.encryption;
@@ -379,34 +369,33 @@ export const settingsReducer = (
         key_length: action.payload?.key_length || state.key_length,
         sync_theme: setSyncTheme,
       };
+    }
     case Action.SET_THEME:
       return {
         ...state,
         theme: action.payload.theme || state.theme,
       };
-    case Action.UPDATE_THEME:
+    case Action.UPDATE_THEME: {
       setSyncItem(Storage.THEME, action.payload.theme);
       const newTheme = {
         ...state,
         theme: action.payload.theme,
       };
       return newTheme;
-    case Action.UPDATE_SETTINGS:
-      // @ts-ignore
+    }
+    case Action.UPDATE_SETTINGS: {
       const { encryption: enc, sync_theme: sync } = action.payload || {};
-      const testedEncryption = enc !== undefined ? enc : state.encryption;
-      const testedSyncTheme = sync !== undefined ? sync : state.sync_theme;
-
       const newState = {
         ...state,
         api_key: action.payload?.api_key || state.api_key,
         enc_mode: action.payload?.enc_mode || state.enc_mode,
-        encryption: testedEncryption,
+        encryption: enc !== undefined ? enc : state.encryption,
         key_length: action.payload?.key_length || state.key_length,
-        sync_theme: testedSyncTheme,
+        sync_theme: sync !== undefined ? sync : state.sync_theme,
       };
       setSyncItem(Storage.SETTINGS, JSON.stringify(newState));
       return newState;
+    }
     case Action.RESET_SETTINGS:
       setSyncItem(Storage.SETTINGS, JSON.stringify(DEFAULT_CONTEXT));
       return {

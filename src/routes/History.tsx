@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import List from '@mui/material/List';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { Action } from '../constants';
 import moment from 'moment';
 import { AppContext, HistoryType } from '../contexts/AppContext';
 import { useHistory } from 'react-router-dom';
@@ -19,15 +18,6 @@ const useStyles = makeStyles(theme => ({
   list: {
     padding: 20,
   },
-  icon: {
-    fontSize: 80,
-    width: '100%',
-    color: 'green',
-    margin: 20,
-  },
-  grey: {
-    color: 'grey',
-  },
   center: {
     width: '100%',
     display: 'flex',
@@ -40,27 +30,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function History() {
   const { push } = useHistory();
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   const { history } = state;
 
   const handleHistory = (index: number) => {
-    // dispatch({type: Action.ADD_TO_HISTORY, payload: {
-    //         id: item.id,
-    //         pastebinlink: item.pastebinlink,
-    //         enc_mode: item.enc_mode,
-    //         key_length: item.key_length,
-    //         key: item.key,
-    //         enc_text: item.enc_text,
-    //         date: item.date,
-    //     }
-    // })
-
     push(`/result/${index}`);
   };
 
   const handleTitle = (item: HistoryType) => {
-    const title = '';
-
     if (item?.pastebinlink) {
       return item.pastebinlink;
     } else {
@@ -77,7 +54,6 @@ export default function History() {
 
   return (
     <>
-      {/* @ts-ignore */}
       {history && history?.length ? (
         <Typography variant="h2" className={classes.pageHeading}>
           History
@@ -102,6 +78,7 @@ export default function History() {
             }
             return (
               <DateOrderedItem
+                key={itemTime}
                 showDateHeading={showItem}
                 clickHandler={() => handleHistory(history.length - index - 1)}
                 payload={item}
